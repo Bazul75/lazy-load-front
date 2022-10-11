@@ -64,6 +64,7 @@ stages:
         publishLocation: 'Container'
 
     - task: Docker@2
+      displayName: 'Uploading image to DockerHub'
       inputs:
         containerRegistry: 'DockerHub'
         repository: 'bazul98/lazy-load-front'
@@ -73,4 +74,3 @@ stages:
         tags: |
           $(Build.BuildId)
           latest
-      enabled: false
