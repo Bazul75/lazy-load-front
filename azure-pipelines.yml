@@ -66,7 +66,7 @@ stages:
     - task: Docker@2
       displayName: 'Uploading image to DockerHub'
       inputs:
-        containerRegistry: 'DockerHub'
+        containerRegistry: 'dockerhubconnection'
         repository: 'bazul98/lazy-load-front'
         command: 'buildAndPush'
         Dockerfile: 'Dockerfile'
@@ -74,3 +74,6 @@ stages:
         tags: |
           $(Build.BuildId)
           latest
+        addPipelineData: false
+        addBaseImageData: false
+
