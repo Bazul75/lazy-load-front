@@ -62,3 +62,15 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'artifact'
         publishLocation: 'Container'
+
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'DockerHub'
+        repository: 'bazul98/lazy-load-front'
+        command: 'buildAndPush'
+        Dockerfile: 'Dockerfile'
+        buildContext: '.'
+        tags: |
+          $(Build.BuildId)
+          latest
+      enabled: false

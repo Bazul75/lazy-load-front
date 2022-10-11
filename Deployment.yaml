@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: lazy-load-front-config
+  labels:
+    app: lazy-load-front
+data:
+  API_SERVER: lazy-load-backend:9000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lazy-load-front
+  labels:
+    app: lazy-load-front
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: lazy-load-front
+  template:
+    metadata:
+      labels:
+        app: lazy-load-front
+    spec:
+      containers:
+      - name: lazy-load-front
+        image: bazul98/lazy-load-front:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 4200
+        envFrom:
+        - configMapRef:
+            name: lazy-load-front-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lazy-load-front
+spec:
+  type: LoadBalancer
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 4200
+  selector:
+    app: front
