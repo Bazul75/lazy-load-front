@@ -77,3 +77,20 @@ stages:
         addPipelineData: false
         addBaseImageData: false
 
+- stage: Deployment
+  displayName: Deployment 
+  jobs:
+  - job: DeploymentKubernetes
+    displayName: Deployment Kubernetes
+    
+    steps:
+    - task: Kubernetes@1
+      inputs:
+        connectionType: 'Kubernetes Service Connection'
+        kubernetesServiceEndpoint: 'endpoint'
+        namespace: 'default'
+        command: 'apply'
+        useConfigurationFile: true
+        configuration: 'Deployment.yaml'
+        secretType: 'dockerRegistry'
+        containerRegistryType: 'Azure Container Registry'
