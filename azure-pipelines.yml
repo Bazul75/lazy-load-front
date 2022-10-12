@@ -47,6 +47,11 @@ stages:
       displayName: 'Publishing code analysis result'
       inputs:
         pollingTimeoutSec: '300'
+    
+    - task: sonarcloud-buildbreaker@2
+      inputs:
+        SonarCloud: 'sonar-azuredevops'
+        organization: 'josedanielbaena'
 
     - task: ArchiveFiles@2
       inputs:
