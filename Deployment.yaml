@@ -5,7 +5,7 @@ metadata:
   labels:
     app: lazy-load-front
 data:
-  API_SERVER: lazy-load-backend:9000
+  API_SERVER: http://lazy-load-backend:9000
 ---
 apiVersion: apps/v1
 kind: Deployment
